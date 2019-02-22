@@ -1,0 +1,25 @@
+#!/bin/bash
+set -e
+script_dir=$(dirname $0)
+image=tech.hello
+
+dockerhub_username=$1
+if [ "$dockerhub_username" == "" ]; then
+    echo "You must specify a dockerhub_username to pull."
+    exit 1
+fi
+
+docker pull $dockerhub_username/$image:latest
+
+if [ "$(docker ps -a --filter "name=$image$" --format "{{.Names}}" | tr -d '\n')" == "$image" ]; then
+    echo "Stopping / removing old $image."
+    docker stop $image
+    docker rm -f $image
+fi
+
+docker run -d                                                  \
+    --restart=always                                           \
+    --name $image                                              \
+    -p 8080:8080                                               \
+    $dockerhub_username/$image                                 \
+    /usr/bin/java -jar /srv/$image.jar

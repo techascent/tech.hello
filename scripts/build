@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+script_dir=$(dirname $0)
+image=tech.hello
+
+dockerhub_username=$1
+if [ "$dockerhub_username" == "" ]; then
+    echo "You must specify a dockerhub_username to push."
+    exit 1
+fi
+
+lein uberjar
+docker build -t $dockerhub_username/$image:latest . -f scripts/Dockerfile --build-arg SERVICE=$image
+docker push $dockerhub_username/$image:latest
