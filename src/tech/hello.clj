@@ -8,6 +8,6 @@
     (-> (fn [request]
           {:status  200
            :headers {"Content-Type" "text/html"}
-           :body    "<html><body>Hello, World! (from: TechAscent)</body></html>"})
+           :body    "<html><body><div><img src=\"http://techascent.com/img/techascent-960.png\"/></div><div>Hello, World! (from: TechAscent)</div></body></html>"})
         (http/run-server {:port port}))
     (println "Server Started on port:" port)))
