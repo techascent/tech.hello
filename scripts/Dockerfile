@@ -11,4 +11,4 @@ ARG SERVICE
 ENV service ${SERVICE:-service}
 ADD target/uberjar/${service}.jar /srv/${service}.jar
 WORKDIR /srv
-CMD "/usr/bin/java" "-jar" "/srv/${service}.jar"
+CMD "java" "-jar" "/srv/${service}.jar"

@@ -22,4 +22,4 @@ docker run -d                                                  \
     --name $image                                              \
     -p 8080:8080                                               \
     $dockerhub_username/$image                                 \
-    /usr/bin/java -jar /srv/$image.jar
+    java -jar /srv/$image.jar
